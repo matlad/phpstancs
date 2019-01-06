@@ -1,0 +1,42 @@
+{
+    "name": "matla/phpstansc",
+    "type": "project",
+    "description": "<description>",
+    "prefer-stable": true,
+    "license": "GPL-3.0",
+    "version": "0",
+    "authors": [
+        {
+            "name": "Adam Mátl",
+            "email": "code@matla.cz"
+        }
+    ],
+    "minimum-stability": "dev",
+
+    "autoload": {
+        "psr-4": { "matla\\phpstansc\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": { "matla\\phpstansc\\": "tests/" }
+    },
+
+    "scripts": {
+        "check": [
+            "@phpunit",
+            "@phpcs",
+            "@phpstan",
+            "@phpmd"
+        ],
+        "phpunit": "vendor/bin/phpunit",
+        "phpcs": "vendor/bin/phpcs --standard=PSR2 src tests",
+        "phpstan": "vendor/bin/phpstan analyse --level=max src tests",
+        "phpmd":   "vendor/bin/phpmd src,tests text codesize, controversial, design, naming, unusedcode"
+    },
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5",
+        "phpstan/phpstan": "^0.10.7"
+    }
+}
