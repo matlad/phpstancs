@@ -40,7 +40,7 @@ class CsLikeFormatter implements ErrorFormatter
      */
     public function formatErrors(
         AnalysisResult $analysisResult,
-        \Symfony\Component\Console\Style\OutputStyle $style
+        OutputStyle $style
     ): int {
         $style->writeln('<?xml version="1.0" encoding="UTF-8"?>');
         $style->writeln('<phpcs version="3.4.0">');
