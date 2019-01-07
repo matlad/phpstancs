@@ -4,26 +4,42 @@
 
 $root = is_dir(__DIR__ . '/../vendor') ? __DIR__ . '/../' : __DIR__ . '/../../../../';
 
-if(!isset($argv[1]))
-{
+if (!isset($argv[1])) {
     die('Alespoň jeden prametr je povinný --version |<src-file>');
 }
 
-if($argv[1] === '--version')
-{
+if ($argv[1] === '--version') {
     passthru("{$root}vendor/bin/phpcs --version");
+
+    file_put_contents(
+        '/media/Linux_Data/Web/libs/phpstansc.log',
+        "\n### parmas ########################\n" .
+        implode(' ', $argv) .
+        "\n### result #######################\n" .
+        'verze'
+    );
+
     return;
 }
 
 ob_start();
-passthru("{$root}vendor/bin/phpstan analyse {$argv[1]} -c {$root}phpstan.neon -l max --error-format cslike --no-progress");
+passthru(
+    "{$root}vendor/bin/phpstan analyse {$argv[1]} -c {$root}phpstan.neon -l max --error-format cslike --no-progress"
+);
 $phpstanErrors = ob_get_clean();
 
 ob_start();
-passthru("{$root}vendor/bin/phpcs ".implode(' ', $argv));
+passthru("{$root}vendor/bin/phpcs " . implode(' ', $argv));
 $csErrors = ob_get_clean();
 
 
-echo $result =  substr($phpstanErrors, 0, -9).substr($csErrors, 63);
+echo $result = substr($phpstanErrors, 0, -9) . substr($csErrors, 63);
 
+file_put_contents(
+    '/media/Linux_Data/Web/libs/phpstansc.log',
+    "\n### parmas ########################\n" .
+    implode(' ', $argv) .
+    "\n### result #######################\n" .
+    $result
+);
 
