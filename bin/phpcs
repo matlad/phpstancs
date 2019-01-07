@@ -2,7 +2,7 @@
 <?php declare(strict_types=1);
 
 
-$root = __DIR__ . '/../';
+$root = is_dir(__DIR__ . '/../vendor') ? __DIR__ . '/../' : __DIR__ . '/../../../../';
 
 if(!isset($argv[1]))
 {
