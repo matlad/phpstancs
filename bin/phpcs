@@ -2,7 +2,8 @@
 <?php declare(strict_types=1);
 
 
-$root = is_dir(__DIR__ . '/../vendor') ? __DIR__ . '/../' : __DIR__ . '/../../../../';
+$vendorDir = is_dir(__DIR__ . '/../vendor') ? __DIR__ . '/../vendor/' : __DIR__ . '/../../../../vendor/';
+$rootDir = __DIR__ . '/../';
 
 if (!isset($argv[1])) {
     die('Alespoň jeden prametr je povinný --version |<src-file>');
@@ -16,7 +17,8 @@ if ($argv[1] === '--version') {
         "\n### parmas ########################\n" .
         implode(' ', $argv) .
         "\n### result #######################\n" .
-        'verze'
+        'verze',
+        FILE_APPEND
     );
 
     return;
@@ -24,12 +26,12 @@ if ($argv[1] === '--version') {
 
 ob_start();
 passthru(
-    "{$root}vendor/bin/phpstan analyse {$argv[1]} -c {$root}phpstan.neon -l max --error-format cslike --no-progress"
+    "{$vendorDir}bin/phpstan analyse {$argv[1]} -c {$rootDir}phpstan.neon -l max --error-format cslike --no-progress"
 );
 $phpstanErrors = ob_get_clean();
 
 ob_start();
-passthru("{$root}vendor/bin/phpcs " . implode(' ', $argv));
+passthru("{$vendorDir}bin/phpcs " . implode(' ', $argv));
 $csErrors = ob_get_clean();
 
 
@@ -44,6 +46,7 @@ file_put_contents(
     '#########################x'.
     $phpstanErrors.
     '######################x'.
-    $csErrors
+    $csErrors,
+    FILE_APPEND
 );
 
