@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4cc2584fbf324b1570783e5cc0452466",
-    "content-hash": "33cecd75dc2a99083d8fd711c3dbd5d7",
+    "hash": "41492b5259838e6f2e25d64bc280e196",
+    "content-hash": "068f0f3bb2c6e74b5b7aca035483d4d0",
     "packages": [
         {
             "name": "composer/xdebug-handler",
@@ -2612,7 +2612,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
