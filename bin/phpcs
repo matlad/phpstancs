@@ -40,6 +40,10 @@ file_put_contents(
     "\n### parmas ########################\n" .
     implode(' ', $argv) .
     "\n### result #######################\n" .
-    $result
+    $result.
+    '#########################x'.
+    $phpstanErrors.
+    '######################x'.
+    $csErrors
 );
 
