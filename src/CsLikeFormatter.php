@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace matla\phpstansc;
+namespace matla\phpstancs;
 
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Style\OutputStyle;
 /**
  * Class CsLikeFormatter
  *
- * @package Phpstansc
+ * @package matla\phpstancs
  */
 class CsLikeFormatter implements ErrorFormatter
 {

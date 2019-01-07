@@ -11,13 +11,13 @@
             "email": "code@matla.cz"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
 
     "autoload": {
-        "psr-4": { "matla\\phpstansc\\": "src/"}
+        "psr-4": { "matla\\phpstancs\\": "src/"}
     },
     "autoload-dev": {
-        "psr-4": { "matla\\phpstansc\\": "tests/" }
+        "psr-4": { "matla\\phpstancs\\": "tests/" }
     },
 
     "scripts": {
