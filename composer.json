@@ -1,5 +1,5 @@
 {
-    "name": "matla/phpstansc",
+    "name": "matla/phpstancs",
     "type": "project",
     "description": "Spojuje výstup phpcs a phpstanu jako phpcs a lze tím phpstan podstrcit phpstormu",
     "prefer-stable": true,

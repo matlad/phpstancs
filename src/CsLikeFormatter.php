@@ -1,6 +1,6 @@
 <?php
 /**
- * @project  phpstansc
+ * @project  phpstancs
  * @author   Adam Mátl <matla@matla.cz>
  * @date     6.1.19
  * @encoding UTF-8

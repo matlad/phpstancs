@@ -1,4 +1,4 @@
-phpstansc
+phpstancs
 =========
 Slouží k podstrčení phpStanu phpStormu jako phpcs
 
@@ -6,18 +6,18 @@ Slouží k podstrčení phpStanu phpStormu jako phpcs
 
 ## Instalace
 
-Do composer.jsom přidej 
+Do composer.jsom přidej gi
 ```json5
 "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/matlad/phpstansc"
+            "url": "https://github.com/matlad/phpstancs"
         }
     ],
 ```
 a pak už jen
 ```bash
-composer require matla/phpstansc 
+composer require matla/phpstancs 
 ```
 
 ## Použití 
