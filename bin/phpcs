@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+
+$root = __DIR__ . '/../';
+
+if(!isset($argv[1]))
+{
+    die('Alespoň jeden prametr je povinný --version |<src-file>');
+}
+
+if($argv[1] === '--version')
+{
+    passthru("{$root}vendor/bin/phpcs --version");
+    return;
+}
+
+ob_start();
+passthru("{$root}vendor/bin/phpstan analyse {$argv[1]} -c {$root}phpstan.neon -l max --error-format cslike --no-progress");
+$phpstanErrors = ob_get_clean();
+
+ob_start();
+passthru("{$root}vendor/bin/phpcs ".implode(' ', $argv));
+$csErrors = ob_get_clean();
+
+
+echo $result =  substr($phpstanErrors, 0, -9).substr($csErrors, 63);
+
+

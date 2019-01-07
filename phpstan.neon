@@ -1,0 +1,3 @@
+services:
+	errorFormatter.cslike:
+		class:  matla\phpstansc\CsLikeFormatter
