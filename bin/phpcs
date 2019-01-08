@@ -1,52 +1,16 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
+use matla\phpstancs\StanCs;
 
-$vendorDir = is_dir(__DIR__ . '/../vendor') ? __DIR__ . '/../vendor/' : __DIR__ . '/../../../../vendor/';
-$rootDir = __DIR__ . '/../';
+$vendorDir = is_dir(__DIR__ . '/../vendor') ?
+    __DIR__ . '/../vendor/'
+    : __DIR__ . '/../../../../vendor/';
 
-if (!isset($argv[1])) {
-    die('Alespoň jeden prametr je povinný --version |<src-file>');
-}
+require $vendorDir . 'autoload.php';
 
-if ($argv[1] === '--version') {
-    passthru("{$root}vendor/bin/phpcs --version");
+$stanCs = new StanCs($argv, $vendorDir);
 
-    file_put_contents(
-        '/media/Linux_Data/Web/libs/phpstansc.log',
-        "\n### parmas ########################\n" .
-        implode(' ', $argv) .
-        "\n### result #######################\n" .
-        'verze',
-        FILE_APPEND
-    );
-
-    return;
-}
-
-ob_start();
-passthru(
-    "{$vendorDir}bin/phpstan analyse {$argv[1]} -c {$rootDir}phpstan.neon -l max --error-format cslike --no-progress"
-);
-$phpstanErrors = ob_get_clean();
-
-ob_start();
-passthru("{$vendorDir}bin/phpcs " . implode(' ', $argv));
-$csErrors = ob_get_clean();
-
-
-echo $result = substr($phpstanErrors, 0, -9) . substr($csErrors, 63);
-
-file_put_contents(
-    '/media/Linux_Data/Web/libs/phpstansc.log',
-    "\n### parmas ########################\n" .
-    implode(' ', $argv) .
-    "\n### result #######################\n" .
-    $result.
-    '#########################x'.
-    $phpstanErrors.
-    '######################x'.
-    $csErrors,
-    FILE_APPEND
-);
+$result = $stanCs->run();
+echo $result;
 
