@@ -9,7 +9,7 @@ $vendorDir = is_dir(__DIR__ . '/../vendor') ?
 
 require $vendorDir . 'autoload.php';
 
-$stanCs = new StanCs($argv, $vendorDir);
+$stanCs = new StanCs($argv, $vendorDir . '../');
 
 $result = $stanCs->run();
 echo $result;

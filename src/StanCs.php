@@ -10,30 +10,37 @@ declare(strict_types=1);
 
 namespace matla\phpstancs;
 
+use Nette\Neon\Neon;
 use RuntimeException;
-use stdClass;
 
 class StanCs
 {
-    private $vendorDir;
-
     /**
+     * Tam kde je složka vendor.
      *
      * @var string
      */
-    private $rootDir;
+    private $projectRootDir;
+
+    /**
+     * @var string
+     */
+    private $phpstancsRootDir;
 
     /**
      * @var string[]
      */
     private $argv;
 
+    /**
+     * @var Config
+     */
     private $config;
 
-    public function __construct(array $argv, string $vendorDir)
+    public function __construct(array $argv, string $projectRootDir)
     {
-        $this->vendorDir = $vendorDir;
-        $this->rootDir = __DIR__ . '/../';
+        $this->projectRootDir = $projectRootDir;
+        $this->phpstancsRootDir = __DIR__ . '/../';
         $this->argv = $argv;
         $this->config = $this->getConfig();
     }
@@ -45,7 +52,6 @@ class StanCs
         }
 
         if ($this->argv[1] === '--version') {
-
             return $this->getVersion();
         }
 
@@ -66,14 +72,19 @@ class StanCs
     {
         ob_start();
         passthru(
-            "{$this->vendorDir}bin/phpstan" .
+            "{$this->projectRootDir}vendor/bin/phpstan" .
             " analyse {$this->argv[1]}" .
-            " -c {$this->rootDir}phpstan.neon" .
-            " -l {$this->config->stanLvl}" .
-            " --error-format cslike --no-progress"
+            " -c {$this->projectRootDir}phpstan.neon" .
+            ' --error-format cslike --no-progress'
         );
 
-        return ob_get_clean();
+        $output = ob_get_clean();
+        if($output === false)
+        {
+            throw new RuntimeException('ob_get_clean failed');
+        }
+
+        return $output;
     }
 
     /**
@@ -82,9 +93,15 @@ class StanCs
     protected function getCsOutput(): string
     {
         ob_start();
-        passthru("{$this->vendorDir}bin/phpcs " . implode(' ', $this->argv));
+        passthru("{$this->projectRootDir}vendor/bin/phpcs " . implode(' ', $this->argv));
 
-        return ob_get_clean();
+        $output = ob_get_clean();
+        if($output === false)
+        {
+            throw new RuntimeException('ob_get_clean failed');
+        }
+
+        return $output;
     }
 
     /**
@@ -93,41 +110,43 @@ class StanCs
     protected function getVersion(): string
     {
         ob_start();
-        passthru("{$this->vendorDir}/bin/phpcs --version");
+        passthru("{$this->projectRootDir}vendor/bin/phpcs --version");
 
-        return ob_get_clean();
+        $output = ob_get_clean();
+        if($output === false)
+        {
+            throw new RuntimeException('ob_get_clean failed');
+        }
+
+        return $output;
     }
 
     /**
      * @param string $filename
      *
-     * @return stdClass
+     * @return mixed
      */
-    private function decodeJsonFile(string $filename): stdClass
+    private function decodeNeonFile(string $filename)
     {
-        $json = file_get_contents($filename);
-        if ($json === false) {
+        $neonString = file_get_contents($filename);
+        if ($neonString === false) {
             throw new RuntimeException("Failed open {$filename}");
         }
-        $result = json_decode($json);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new RuntimeException("Failed decode {$filename} : " . json_last_error_msg());
-        }
-
-        return $result;
+        return Neon::decode($neonString);
     }
 
-    private function getConfig(): stdClass
+    private function getConfig(): Config
     {
-        $userConfigFile = $this->vendorDir . '../stanCs.json';
-        $configFile = $this->rootDir . 'config.json';
+        $configFile = $this->projectRootDir . 'phpstan.neon';
 
-        $config = $this->decodeJsonFile($configFile);
+        $config = new Config();
 
-        if (file_exists($userConfigFile)) {
-            $userConfig = $this->decodeJsonFile($userConfigFile);
-            $config = (object)array_merge((array)$config, (array)$userConfig);
+        if (file_exists($configFile)) {
+            $NeonConfig = $this->decodeNeonFile($configFile);
+            if (isset($NeonConfig['parameters']['runCS'])) {
+                $config->runCs = (bool)$NeonConfig['parameters']['runCS'];
+            }
         }
 
         return $config;

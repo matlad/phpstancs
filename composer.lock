@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c23200399ed485fcbd8908f3d0e54e45",
-    "content-hash": "3cfe60d958ce5778768f5929cb2a6a49",
+    "hash": "627d3b1661a58a6640d0eceb21ae01ec",
+    "content-hash": "29ca7064013e57c6aa89a86481d4373d",
     "packages": [
         {
             "name": "composer/xdebug-handler",
@@ -727,16 +727,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.10.7",
+            "version": "0.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b7a70043d9a933c9d1575df49a7b141dbc3c469f"
+                "reference": "4f828460a0276180da76c670a0a6e592e7c38b71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b7a70043d9a933c9d1575df49a7b141dbc3c469f",
-                "reference": "b7a70043d9a933c9d1575df49a7b141dbc3c469f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4f828460a0276180da76c670a0a6e592e7c38b71",
+                "reference": "4f828460a0276180da76c670a0a6e592e7c38b71",
                 "shasum": ""
             },
             "require": {
@@ -796,7 +796,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2018-12-28 13:47:37"
+            "time": "2019-01-08 09:51:19"
         },
         {
             "name": "psr/log",
@@ -1244,6 +1244,54 @@
                 "object graph"
             ],
             "time": "2018-06-11 23:09:50"
+        },
+        {
+            "name": "pepakriz/phpstan-exception-rules",
+            "version": "v0.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pepakriz/phpstan-exception-rules.git",
+                "reference": "83fd9a4cdd39a2721c01b27cbf92a1aff423fbd3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pepakriz/phpstan-exception-rules/zipball/83fd9a4cdd39a2721c01b27cbf92a1aff423fbd3",
+                "reference": "83fd9a4cdd39a2721c01b27cbf92a1aff423fbd3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "phpstan/phpstan": "^0.10.5"
+            },
+            "require-dev": {
+                "cdn77/coding-standard": "^0.7.1",
+                "jakub-onderka/php-console-highlighter": "0.3.2",
+                "jakub-onderka/php-parallel-lint": "1.0.0",
+                "phpstan/phpstan-nette": "^0.10",
+                "phpstan/phpstan-phpunit": "^0.10",
+                "phpstan/phpstan-strict-rules": "^0.10",
+                "phpunit/phpunit": "^7.1.5",
+                "satooshi/php-coveralls": "^2.0",
+                "slevomat/coding-standard": "^4.8.3",
+                "squizlabs/php_codesniffer": "~3.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pepakriz\\PHPStanExceptionRules\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Exception rules for PHPStan",
+            "time": "2019-01-05 16:50:03"
         },
         {
             "name": "phar-io/manifest",
@@ -2617,7 +2665,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
