@@ -3,13 +3,19 @@
 
 use matla\phpstancs\StanCs;
 
-$vendorDir = is_dir(__DIR__ . '/../vendor') ?
-    __DIR__ . '/../vendor/'
-    : __DIR__ . '/../../../../vendor/';
+$vendorDir = is_dir(__DIR__ . '/../../../../vendor/')
+    ? __DIR__ . '/../../../../vendor/'
+    : __DIR__ . '/../vendor/';
 
 require $vendorDir . 'autoload.php';
 
-$stanCs = new StanCs($argv, $vendorDir . '../');
+$projectRoot = $vendorDir . '../';
+
+if (!is_dir($projectRoot)) {
+    throw new LogicException('Project root not found');
+}
+
+$stanCs = new StanCs($argv, $projectRoot);
 
 $result = $stanCs->run();
 echo $result;

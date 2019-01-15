@@ -1,10 +1,10 @@
 <?php
 /**
  * @project  phpstancs
- * @author   Adam Mátl <matla@matla.cz>
+ * @author   Adam Mátl <code@matla.cz>
  * @date     8.1.19
  * @encoding UTF-8
- * @brief    StanCs.php
+ * @file    StanCs.php
  */
 declare(strict_types=1);
 
@@ -70,6 +70,10 @@ class StanCs
      */
     protected function getStanOutput(): string
     {
+        // zajistíme, aby phpstan našel autoloader i když je umístěn mimo projekt
+        // PHP satan primárně načítá autoloader z cwd/vendor/autoloader.php
+        exec('cd ' . escapeshellarg($this->projectRootDir));
+
         ob_start();
         passthru(
             "{$this->projectRootDir}vendor/bin/phpstan" .

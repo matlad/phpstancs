@@ -1,7 +1,7 @@
 <?php
 /**
  * @project  phpstancs
- * @author   Adam Mátl <matla@matla.cz>
+ * @author   Adam Mátl <code@matla.cz>
  * @date     6.1.19
  * @encoding UTF-8
  */

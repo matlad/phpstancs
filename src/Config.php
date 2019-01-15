@@ -1,10 +1,10 @@
 <?php
 /**
  * @project  phpstancs
- * @author   Adam Mátl <matla@matla.cz>
+ * @author   Adam Mátl <code@matla.cz>
  * @date     9.1.19
  * @encoding UTF-8
- * @brief    Config.php
+ * @file   Config.php
  */
 declare(strict_types=1);
 

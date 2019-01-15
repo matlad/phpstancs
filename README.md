@@ -2,7 +2,9 @@ phpstancs
 =========
 Slouží k podstrčení phpStanu phpStormu jako phpcs
 
-![example](resources/readmeImg/noticeExample.png)
+![notice example](resources/readmeImg/noticeExample.png)
+
+![inspection example](resources/readmeImg/inspectionExample.png)
 
 ## Instalace
 
@@ -27,17 +29,21 @@ a nastavit cestu k vendor/matla/phpstancs/bin/phpcs
 ![img](resources/readmeImg/setPhpStorm1.png)
 taky je potřeba mýt povolenou inspekci od phpcs
 ![img2](resources/readmeImg/setPhpStorm2.png)
-### Nastavení phpcs
-Vytvořte v root adresáři projektu (tam kde je composer.json) __stanCs.json__.  
-Example:
-```json5
-{
-  "stanLvl" : "max",
-  "runCs": false
-}
+### Nastavení phpStanu a PhpStanCS
+phpStan je možno nastavit pouze pomocí konfiguračního souboru phpstan.neon 
+v root adresáři projektu (tam kde je composer.json)
+pokud takovíto soubor existuje musí obsahovat 
+```neon
+includes:
+	- vendor/matla/phpstancs/extension.neon
+
+```  
+PhpStanCS jde nastavit stejným souborem
+rozšiřuje nastavení o parameter runCS (bool), který zapíná vypíná phpcs
+```neon
+parameters:
+	runCS : true
 ```
-parametry
-* "stanLvl" - phpstan analyse level (0,1,2,...,max)
-* "runCs" - spustí i codeSniffer (bool)
+
 ## Authors
 * Adam Mátl <code@matla.cz>
