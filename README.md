@@ -1,7 +1,7 @@
 phpStanCs
 =========
 This is small hack, that allows you to fob off the phpStan report into phpStorm as a PHP code sniffer.
-This is not realy good solution, but i don't know Java and this wos easier for me.
+This is not really good solution, but i don't know Java and this wos easier for me.
 This is for now, till plugin would be created. I heard somewhere, that somebody may working on it.
 
 ![notice example](resources/readmeImg/noticeExample.png)
@@ -9,19 +9,10 @@ This is for now, till plugin would be created. I heard somewhere, that somebody 
 ![inspection example](resources/readmeImg/inspectionExample.png)
 
 ## Install
-
-Into composer.jsom add 
-```json5
-"repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/matlad/phpstancs"
-        }
-    ],
-```
-and than run in console
+You need composer https://getcomposer.org/
+Than go to project directory and run in console
 ```bash
-composer require matla/phpstancs 
+composer require --dev matla/phpstancs 
 ```
 
 ## Usage and settings 
