@@ -4,7 +4,6 @@
   "description": "Allows you to fob off the phpStan report into phpStorm",
   "prefer-stable": true,
   "license": "GPL-3.0",
-  "version": "0.0.1",
   "authors": [
     {
       "name": "Adam Mátl",
