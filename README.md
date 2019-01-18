@@ -25,13 +25,13 @@ composer require matla/phpstancs
 ```
 
 ## Usage and settings 
-### Nastavení phpStormu
+### PhpStorm settings
 Open File->Settings->Language & Frameworks -> PHP -> Quality Tools -> Code Sniffer
 and set path to __vendor/matla/phpstancs/bin/phpcs__
 ![img](resources/readmeImg/setPhpStorm1.png)
 You also need allowed inspection from phpcs
 ![img2](resources/readmeImg/setPhpStorm2.png)
-### Nastavení phpStanu a PhpStanCS
+### PhpStan and PhpStanCS setup
 phpStan is possible only by file phpstan.neon 
 in root directory of project (location of composer.json).
 If file like this exist, than must contain 
