@@ -35,7 +35,18 @@
     "phpunit": "vendor/bin/phpunit",
     "phpcs": "vendor/bin/phpcs --standard=PSR2 src tests",
     "phpstan": "vendor/bin/phpstan analyse --level=max src tests",
-    "phpmd": "vendor/bin/phpmd src,tests text codesize, controversial, design, naming, unusedcode"
+    "phpmd": "vendor/bin/phpmd src,tests text codesize, controversial, design, naming, unusedcode",
+    "check-win": [
+      "@phpunit-win",
+      "@phpcs-win",
+      "@phpstan-win",
+      "@phpmd-win"
+    ],
+    "phpunit-win": "vendor\\bin\\phpunit.bat",
+    "phpcs-win": "vendor\\bin\\phpcs.bat --standard=PSR2 src tests",
+    "phpstan-win": "vendor\\bin\\phpstan.bat analyse --level=max src tests",
+    "phpmd-win": "vendor\\bin\\phpmd.bat src,tests text codesize, controversial, design, naming, unusedcode",
+    "fix-win": "vendor\\bin\\phpcbf.bat --standard=PSR2 src tests"
   },
   "require": {
     "php": "^7.1",
