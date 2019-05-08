@@ -110,22 +110,6 @@ class StanCs
     }
 
     /**
-     * @return string
-     */
-    protected function getVersion(): string
-    {
-        ob_start();
-        passthru("{$this->projectRootDir}vendor/bin/phpcs --version");
-
-        $output = ob_get_clean();
-        if ($output === false) {
-            throw new RuntimeException('ob_get_clean failed');
-        }
-
-        return $output;
-    }
-
-    /**
      * @param string $filename
      *
      * @return mixed

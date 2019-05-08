@@ -1,6 +1,6 @@
 parameters:
-	"level" : "max"
-	"runCs": false
+	"level": "max"
+	"runCS": true
 
 services:
 	errorFormatter.cslike:
