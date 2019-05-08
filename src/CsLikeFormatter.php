@@ -14,7 +14,6 @@ use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Style\OutputStyle;
 
-
 /**
  * Class CsLikeFormatter
  *

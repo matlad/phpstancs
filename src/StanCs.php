@@ -48,11 +48,11 @@ class StanCs
     public function run(): string
     {
         if (!isset($this->argv[1])) {
-            die('At least one parameter is mandatory  --version |<src-file>');
+            die('At least one parameter is mandatory  --version| -i |<src-file>');
         }
 
-        if ($this->argv[1] === '--version') {
-            return $this->getVersion();
+        if ($this->argv[1] === '--version' || in_array('-i', $this->argv, true)) {
+            return  $this->getCsOutput();
         }
 
         if (!$this->config->runCs) {
@@ -83,8 +83,7 @@ class StanCs
         );
 
         $output = ob_get_clean();
-        if($output === false)
-        {
+        if ($output === false) {
             throw new RuntimeException('ob_get_clean failed');
         }
 
@@ -96,12 +95,14 @@ class StanCs
      */
     protected function getCsOutput(): string
     {
+        $args =  $this->argv;
+        array_shift($args);
+
         ob_start();
-        passthru("{$this->projectRootDir}vendor/bin/phpcs " . implode(' ', $this->argv));
+        passthru("{$this->projectRootDir}vendor/bin/phpcs " . implode(' ', $args));
 
         $output = ob_get_clean();
-        if($output === false)
-        {
+        if ($output === false) {
             throw new RuntimeException('ob_get_clean failed');
         }
 
@@ -117,8 +118,7 @@ class StanCs
         passthru("{$this->projectRootDir}vendor/bin/phpcs --version");
 
         $output = ob_get_clean();
-        if($output === false)
-        {
+        if ($output === false) {
             throw new RuntimeException('ob_get_clean failed');
         }
 
