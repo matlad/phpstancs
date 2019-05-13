@@ -37,27 +37,26 @@ class StanCs
      */
     private $config;
 
-	/**
- 	* @var string
- 	*/
-	private $fileToAnalise;
+    /**
+     * @var string
+     */
+    private $fileToAnalise;
 
 
 
-	/**
-	 * StanCs constructor.
-	 *
-	 * @param array  $argv
-	 * @param string $projectRootDir
-	 * @param string $phpStanVendorDir
-	 */
+    /**
+     * StanCs constructor.
+     *
+     * @param array  $argv
+     * @param string $projectRootDir
+     */
     public function __construct(array $argv, string $projectRootDir)
     {
-        $this->projectRootDir = $projectRootDir;
+        $this->projectRootDir   = $projectRootDir;
         $this->phpstancsRootDir = __DIR__ . '/../';
-        $this->argv = $argv;
-        $this->fileToAnalise = $this->argv[1];
-        $this->config = $this->getConfig();
+        $this->argv             = $argv;
+        $this->fileToAnalise    = $this->argv[1];
+        $this->config           = $this->getConfig();
     }
 
     public function run(): string
@@ -86,11 +85,14 @@ class StanCs
     protected function getStanOutput(): string
     {
         $cwdBak = getcwd();
+        if ($cwdBak === false) {
+            throw new RuntimeException("getcwd() failed");
+        }
         // PHP stan load autoloader primary from `cwd`/vendor/autoloader.php
         exec('cd ' . escapeshellarg($this->projectRootDir));
 
-		$configLocation =
-			file_exists("{$this->projectRootDir}phpstan.neon") ? $this->projectRootDir : $this->phpstancsRootDir;
+        $configLocation =
+            file_exists("{$this->projectRootDir}phpstan.neon") ? $this->projectRootDir : $this->phpstancsRootDir;
 
         ob_start();
         passthru(
@@ -101,10 +103,11 @@ class StanCs
         );
 
         $output = ob_get_clean();
+
         if ($output === false) {
             throw new RuntimeException('ob_get_clean failed');
         }
-		exec('cd ' . escapeshellarg($cwdBak));
+        exec('cd ' . escapeshellarg($cwdBak));
         return $output;
     }
 
