@@ -13,7 +13,7 @@ $projectRoot = $vendorDir . '../';
 
 $autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
 if (is_file($autoloaderInWorkingDirectory)) {
-	$projectRoot = getcwd();
+	$projectRoot = getcwd() . '/';
 }
 
 
