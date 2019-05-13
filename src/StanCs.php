@@ -16,7 +16,7 @@ use RuntimeException;
 class StanCs
 {
     /**
-     * Tam kde je složka vendor.
+     * location of analysed project (directory containing vendor directory).
      *
      * @var string
      */
@@ -37,11 +37,26 @@ class StanCs
      */
     private $config;
 
+	/**
+ 	* @var string
+ 	*/
+	private $fileToAnalise;
+
+
+
+	/**
+	 * StanCs constructor.
+	 *
+	 * @param array  $argv
+	 * @param string $projectRootDir
+	 * @param string $phpStanVendorDir
+	 */
     public function __construct(array $argv, string $projectRootDir)
     {
         $this->projectRootDir = $projectRootDir;
         $this->phpstancsRootDir = __DIR__ . '/../';
         $this->argv = $argv;
+        $this->fileToAnalise = $this->argv[1];
         $this->config = $this->getConfig();
     }
 
@@ -70,15 +85,18 @@ class StanCs
      */
     protected function getStanOutput(): string
     {
-        // zajistíme, aby phpstan našel autoloader i když je umístěn mimo projekt
-        // PHP satan primárně načítá autoloader z cwd/vendor/autoloader.php
+        $cwdBak = getcwd();
+        // PHP stan load autoloader primary from `cwd`/vendor/autoloader.php
         exec('cd ' . escapeshellarg($this->projectRootDir));
+
+		$configLocation =
+			file_exists("{$this->projectRootDir}phpstan.neon") ? $this->projectRootDir : $this->phpstancsRootDir;
 
         ob_start();
         passthru(
-            "{$this->projectRootDir}vendor/bin/phpstan" .
-            " analyse {$this->argv[1]}" .
-            " -c {$this->projectRootDir}phpstan.neon" .
+            "{$this->phpstancsRootDir}vendor/bin/phpstan" .
+            " analyse {$this->fileToAnalise}" .
+            " -c {$configLocation}phpstan.neon" .
             ' --error-format cslike --no-progress'
         );
 
@@ -86,7 +104,7 @@ class StanCs
         if ($output === false) {
             throw new RuntimeException('ob_get_clean failed');
         }
-
+		exec('cd ' . escapeshellarg($cwdBak));
         return $output;
     }
 
@@ -99,7 +117,7 @@ class StanCs
         array_shift($args);
 
         ob_start();
-        passthru("{$this->projectRootDir}vendor/bin/phpcs " . implode(' ', $args));
+        passthru("{$this->phpstancsRootDir}vendor/bin/phpcs " . implode(' ', $args));
 
         $output = ob_get_clean();
         if ($output === false) {
