@@ -96,7 +96,7 @@ class StanCs
 
         ob_start();
         passthru(
-            "{$this->phpstancsRootDir}vendor/bin/phpstan" .
+            "{$this->getBinDir()}phpstan" .
             " analyse {$this->fileToAnalise}" .
             " -c {$configLocation}phpstan.neon" .
             ' --error-format cslike --no-progress'
@@ -120,7 +120,7 @@ class StanCs
         array_shift($args);
 
         ob_start();
-        passthru("{$this->phpstancsRootDir}vendor/bin/phpcs " . implode(' ', $args));
+        passthru("{$this->getBinDir()}phpcs " . implode(' ', $args));
 
         $output = ob_get_clean();
         if ($output === false) {
@@ -159,6 +159,12 @@ class StanCs
         }
 
         return $config;
+    }
+
+    protected function getBinDir(): string
+    {
+        return file_exists("{$this->phpstancsRootDir}vendor/bin/") ?
+            "{$this->phpstancsRootDir}vendor/bin/" : "{$this->phpstancsRootDir}/../../bin/";
     }
 }
 
