@@ -3,13 +3,19 @@
 
 use matla\phpstancs\StanCs;
 
+
 $vendorDir = is_dir(__DIR__ . '/../../../../vendor/')
     ? __DIR__ . '/../../../../vendor/'
     : __DIR__ . '/../vendor/';
 
-require $vendorDir . 'autoload.php';
-
+require_once $vendorDir . 'autoload.php';
 $projectRoot = $vendorDir . '../';
+
+$autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
+if (is_file($autoloaderInWorkingDirectory)) {
+	$projectRoot = getcwd() . '/';
+}
+
 
 if (!is_dir($projectRoot)) {
     throw new LogicException('Project root not found');
