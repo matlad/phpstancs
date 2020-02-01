@@ -12,7 +12,7 @@ namespace matla\phpstancs;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\File\RelativePathHelper;
-use Symfony\Component\Console\Style\OutputStyle;
+use PHPStan\Command\Output;
 
 /**
  * Class CsLikeFormatter
@@ -32,14 +32,14 @@ class CsLikeFormatter implements ErrorFormatter
     /**
      * Formats the errors and outputs them to the console.
      *
-     * @param \PHPStan\Command\AnalysisResult              $analysisResult
-     * @param \Symfony\Component\Console\Style\OutputStyle $style
+     * @param AnalysisResult $analysisResult
+     * @param Output $style
      *
      * @return int Error code.
      */
     public function formatErrors(
         AnalysisResult $analysisResult,
-        OutputStyle $style
+        Output $style
     ): int {
         $style->writeln('<?xml version="1.0" encoding="UTF-8"?>');
         $style->writeln('<phpcs version="3.4.0">');
