@@ -39,14 +39,15 @@ class CsLikeFormatter implements ErrorFormatter
      */
     public function formatErrors(
         AnalysisResult $analysisResult,
-        Output $style
+        Output $output
     ): int {
-        $style->writeln('<?xml version="1.0" encoding="UTF-8"?>');
-        $style->writeln('<phpcs version="3.4.0">');
+
+        $output->writeLineFormatted('<?xml version="1.0" encoding="UTF-8"?>');
+        $output->writeLineFormatted('<phpcs version="3.4.0">');
 
 
         foreach ($this->groupByFile($analysisResult) as $relativeFilePath => $errors) {
-            $style->writeln(
+            $output->writeLineFormatted(
                 sprintf(
                     '<file name="%s" errors="' . count($errors) . '" warnings="0" fixable="1">',
                     $this->escape($relativeFilePath)
@@ -57,23 +58,22 @@ class CsLikeFormatter implements ErrorFormatter
              * @var \PHPStan\Analyser\Error[] $errors
              */
             foreach ($errors as $error) {
-                $style->writeln(
+                $output->writeLineFormatted(
                     sprintf(
                         '    <error ' .
                         'line="%d" ' .
                         'column="1" ' .
                         'severity="5"  ' .
-                        'fixable="1">phpstan: %s',
+                        'fixable="1">phpstan: %s \</error>',
                         $error->getLine(),
                         $this->escape($error->getMessage())
-                    ) . '</error>',
-                    OutputStyle::OUTPUT_RAW
+                    )
                 );
             }
-            $style->writeln('</file>');
+            $output->writeLineFormatted('</file>');
         }
 
-        $style->writeln('</phpcs>');
+        $output->writeLineFormatted('</phpcs>');
 
         return $analysisResult->hasErrors() ? 1 : 0;
     }

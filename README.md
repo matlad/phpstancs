@@ -36,7 +36,8 @@ Settings for phpStanCs are in same file.
 It is parameter runCS (bool), which turn on/of phpcs inspection which is marget with php stan results.
 ```neon
 parameters:
-	runCS : true
+    phpstancs:
+	    runCS : true
 ```
 
 ## Authors
