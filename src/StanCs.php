@@ -75,7 +75,7 @@ class StanCs
         $stanErrors = $this->getStanOutput();
         $csErrors = $this->getCsOutput();
 
-        return substr($stanErrors, 0, -9) . substr($csErrors, 63);
+        return substr($stanErrors, 0, -strlen(" </file> </phpcs>")) . substr($csErrors, 63);
     }
 
     /**
@@ -90,8 +90,13 @@ class StanCs
         // PHP stan load autoloader primary from `cwd`/vendor/autoloader.php
         exec('cd ' . escapeshellarg($this->projectRootDir));
 
-        $configLocation =
-            file_exists("{$this->projectRootDir}phpstan.neon") ? $this->projectRootDir : $this->phpstancsRootDir;
+        $configLocation = $this->phpstancsRootDir;
+
+        if (file_exists("{$this->projectRootDir}phpstancs.phpstan.neon")) {
+            $configLocation = $this->projectRootDir . 'phpstancs.';
+        } elseif (file_exists("{$this->projectRootDir}phpstan.neon")) {
+            $configLocation = $this->projectRootDir;
+        }
 
         ob_start();
         passthru(
