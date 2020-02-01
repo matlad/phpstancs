@@ -23,13 +23,14 @@ and set path to __vendor/matla/phpstancs/bin/phpcs__
 You also need allowed inspection from phpcs
 ![img2](resources/readmeImg/setPhpStorm2.png)
 ### PhpStan and PhpStanCS setup
-phpStan is possible only by file phpstan.neon 
+Config phpStan is possible only by file phpstan.neon 
 in root directory of project (location of composer.json).
-If file like this exist, than must contain 
+If file like this exist, than you must install this extension 
+either automatically using "phpstan/extension-installer" or by including in your phpstan.neon.  
+eg.
 ```neon
 includes:
 	- vendor/matla/phpstancs/extension.neon
-
 ```  
 Settings for phpStanCs are in same file. 
 It is parameter runCS (bool), which turn on/of phpcs inspection which is marget with php stan results.
