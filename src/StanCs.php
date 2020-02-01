@@ -43,20 +43,19 @@ class StanCs
     private $fileToAnalise;
 
 
-
     /**
      * StanCs constructor.
      *
-     * @param array  $argv
+     * @param array $argv
      * @param string $projectRootDir
      */
     public function __construct(array $argv, string $projectRootDir)
     {
-        $this->projectRootDir   = $projectRootDir;
+        $this->projectRootDir = $projectRootDir;
         $this->phpstancsRootDir = __DIR__ . '/../';
-        $this->argv             = $argv;
-        $this->fileToAnalise    = $this->argv[1];
-        $this->config           = $this->getConfig();
+        $this->argv = $argv;
+        $this->fileToAnalise = $this->argv[1];
+        $this->config = $this->getConfig();
     }
 
     public function run(): string
@@ -66,7 +65,7 @@ class StanCs
         }
 
         if ($this->argv[1] === '--version' || in_array('-i', $this->argv, true)) {
-            return  $this->getCsOutput();
+            return $this->getCsOutput();
         }
 
         if (!$this->config->runCs) {
@@ -116,7 +115,7 @@ class StanCs
      */
     protected function getCsOutput(): string
     {
-        $args =  $this->argv;
+        $args = $this->argv;
         array_shift($args);
 
         ob_start();
@@ -153,8 +152,8 @@ class StanCs
 
         if (file_exists($configFile)) {
             $NeonConfig = $this->decodeNeonFile($configFile);
-            if (isset($NeonConfig['parameters']['runCS'])) {
-                $config->runCs = (bool)$NeonConfig['parameters']['runCS'];
+            if (isset($NeonConfig['parameters']['phpstancs']['runCS'])) {
+                $config->runCs = (bool)$NeonConfig['parameters']['phpstancs']['runCS'];
             }
         }
 

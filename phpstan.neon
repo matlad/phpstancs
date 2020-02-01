@@ -1,6 +1,7 @@
 parameters:
 	"level": "max"
-	"runCS": true
+	phpstancs:
+	    "runCS": true
 
 services:
 	errorFormatter.cslike:
