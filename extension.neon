@@ -1,3 +1,6 @@
+parameters:
+	phpstancs:
+		"runCS": true
 services:
 	errorFormatter.cslike:
 		class:  matla\phpstancs\CsLikeFormatter
