@@ -1,3 +1,6 @@
+# Abandoned
+no more needed phpstorm support phpsan now (EAP 2020.3).
+
 phpStanCs
 =========
 This is small hack, that allows you to fob off the phpStan report into phpStorm as a PHP code sniffer.
