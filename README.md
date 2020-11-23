@@ -1,5 +1,5 @@
 # Abandoned
-no more needed phpstorm support phpsan now (EAP 2020.3).
+no more needed phpstorm support phpsan now (EAP 2020.3). https://blog.jetbrains.com/phpstorm/2020/07/phpstan-and-psalm-support-coming-to-phpstorm/
 
 phpStanCs
 =========
